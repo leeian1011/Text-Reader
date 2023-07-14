@@ -2,7 +2,7 @@ mod text_logic {
     use std::{fs::File, io::Read};
     pub const WHITE_SPACES: [u8; 3] = [b' ', b'\n', b'\t'];
     pub const PUNCTUATION: [u8; 3] = [b'.', b'!', b'?'];
-
+    pub const NON_CHARACTERS: [u8; 3] = [b'\'', b'"', b';'];
     pub enum ExtractError {
         MissingFile,
         EmptyFile,
@@ -33,7 +33,6 @@ pub struct CountData {
 }
 
 impl CountData {
-    
     pub fn new(file_name: &String) -> CountData {
         CountData{
             text: match text_logic::extract_text(&file_name) {
@@ -55,12 +54,27 @@ impl CountData {
                self.word_count += 1;
            }else if text_logic::PUNCTUATION.contains(&byte) {
                self.sentence_count += 1;
-           }else{
+           }else if !text_logic::NON_CHARACTERS.contains(&byte) {
                self.char_count += 1;
            } 
         }
 
        self
+    }
+
+    pub fn level(&self) -> f32 {
+        //This uses the Coleman-Liau Index Formula
+        let letter_per_word: f32 = (self.char_count as f32)/(self.word_count as f32);
+        let sentence_per_word: f32 = (self.sentence_count as f32)/(self.word_count as f32);        
+        
+        let average_letters = letter_per_word * 100.0;
+        let average_words = sentence_per_word * 100.0;
+        println!("{}", average_letters);
+        0.0588 * average_letters - 0.296 * average_words - 15.8
+    }
+
+    pub fn create_word_count(&self) -> () {
+        todo!();
     }
 }
 
