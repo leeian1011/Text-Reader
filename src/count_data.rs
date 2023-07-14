@@ -42,17 +42,20 @@ impl CountData {
         }
     }
     
-    fn set_char_count(&mut self, char_count: u64) -> (){
-        self.char_count = char_count;
+    pub fn count(mut self) -> CountData{
+       let text_bytes: &[u8] = self.text.as_bytes();
+
+       for &byte in text_bytes {
+           match byte {
+               b' ' | b'\n' => self.word_count += 1,
+               b'.' => self.sentence_count += 1,
+               _ => self.char_count += 1,
+            };
+        }
+
+       self
     }
 
-    fn set_word_count(&mut self, word_count: u64) -> (){
-        self.word_count = word_count;
-    }
-
-    fn set_sentence_count(&mut self, sentence_count: u64) -> (){
-        self.sentence_count = sentence_count;
-    }
 }
 
 

@@ -9,8 +9,10 @@ fn main(){
         return
     }
     
-    let test: CountData = CountData::new(&argv[1]);
-    println!("{:?}", test);
+    let mut test: CountData = CountData::new(&argv[1]).count();
+    
+   println!("{:?}", test); //DEBUG LINE
+
 }
 
 
