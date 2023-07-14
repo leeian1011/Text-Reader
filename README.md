@@ -20,9 +20,11 @@ I also just learn better by building random stuff so hopefully this works out :p
 
 4. Work with the most beef'd up version of the `switch` statement. The `match` logic control flow. (It's INSANE)
 
-5. Learn how command-line arguments are accepted in rust!
+5. Learn the insanely useful error-handling enum types `Option<_>` and `Result<T, E>`! 
 
-6. Learn how to use pattern-matching on command-line argument to ensure right type of file (.txt) is inputted requested.
+6. Learn how command-line arguments are accepted in rust!
+
+7. Learn how to use pattern-matching on command-line argument to ensure right type of file (.txt) is inputted requested.
 
 ## Notes
 
