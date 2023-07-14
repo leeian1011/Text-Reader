@@ -42,15 +42,15 @@ impl CountData {
         }
     }
     
-    pub fn set_char_count(&mut self, char_count: u64) -> (){
+    fn set_char_count(&mut self, char_count: u64) -> (){
         self.char_count = char_count;
     }
 
-    pub fn set_word_count(&mut self, word_count: u64) -> (){
+    fn set_word_count(&mut self, word_count: u64) -> (){
         self.word_count = word_count;
     }
 
-    pub fn set_sentence_count(&mut self, sentence_count: u64) -> (){
+    fn set_sentence_count(&mut self, sentence_count: u64) -> (){
         self.sentence_count = sentence_count;
     }
 }
