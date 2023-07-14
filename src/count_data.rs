@@ -1,20 +1,12 @@
-use std::{fs::File, io::Read};
+mod text_logic {
+    use std::{fs::File, io::Read};
 
-enum ExtractError {
-    MissingFile,
-    EmptyFile,
-}
+    pub enum ExtractError {
+        MissingFile,
+        EmptyFile,
+    }
 
-#[derive(Debug)]
-pub struct CountData {
-    pub text: String,
-    char_count: u64,
-    word_count: u64,
-    sentence_count: u64,
-}
-
-impl CountData {
-    fn extract_text(file_name: &String) -> Result<String, ExtractError> {
+    pub fn extract_text(file_name: &String) -> Result<String, ExtractError> {
         let mut file: File = match File::open(file_name) {
             Ok(found_file) => found_file,
             Err(error) => return Result::Err(ExtractError::MissingFile),
@@ -28,13 +20,23 @@ impl CountData {
         //println!("successfully extracted {}", text);  DEBUG LINE 
         Ok(text)
     }
-        
+}
+
+#[derive(Debug)]
+pub struct CountData {
+    pub text: String,
+    char_count: u64,
+    word_count: u64,
+    sentence_count: u64,
+}
+
+impl CountData {
     pub fn new(file_name: &String) -> CountData {
         CountData{
-            text: match CountData::extract_text(&file_name) {
+            text: match text_logic::extract_text(&file_name) {
                 Ok(string) => string,
-                Err(ExtractError::EmptyFile) => panic!("File is empty"),
-                Err(ExtractError::MissingFile) => panic!("File does not exist"),
+                Err(text_logic::ExtractError::EmptyFile) => panic!("File is empty"),
+                Err(text_logic::ExtractError::MissingFile) => panic!("File does not exist"),
             },
             char_count: 0,
             word_count: 0,
@@ -55,7 +57,7 @@ impl CountData {
 
        self
     }
-
 }
+
 
 
