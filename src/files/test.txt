@@ -1,0 +1,1 @@
+This is sample test text that should display 12 words when used.
