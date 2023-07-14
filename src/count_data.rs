@@ -9,13 +9,13 @@ mod text_logic {
     pub fn extract_text(file_name: &String) -> Result<String, ExtractError> {
         let mut file: File = match File::open(file_name) {
             Ok(found_file) => found_file,
-            Err(error) => return Result::Err(ExtractError::MissingFile),
+            Err(_) => return Result::Err(ExtractError::MissingFile),
         };
 
         let mut text: String = String::new();
         match file.read_to_string(&mut text) {
             Ok(string) => string,
-            Err(error) => return Result::Err(ExtractError::EmptyFile),
+            Err(_) => return Result::Err(ExtractError::EmptyFile),
         };
         //println!("successfully extracted {}", text);  DEBUG LINE 
         Ok(text)
