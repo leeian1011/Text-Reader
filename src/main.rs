@@ -1,11 +1,26 @@
+mod count_data;
+use crate::count_data::CountData;
 use std::fs::File;
 use std::io::prelude::*;
 
 fn main(){
-    let mut test: File = File::open("src/text.txt").expect("err file");
-    let mut s1: String = String::new();
-    
-    test.read_to_string(&mut s1).expect("could not read");
+    let mut file: File = File::open("src/files/test.txt").expect("Could not find file");
+    let mut text: String = String::new();
 
-    println!("{}", s1);
+    file.read_to_string(&mut text).expect("Could not read file");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
