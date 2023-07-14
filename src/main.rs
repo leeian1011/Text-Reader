@@ -9,7 +9,6 @@ fn main(){
     test.set_char_count(100);
     test.set_word_count(20);
     test.set_sentence_count(2);
-
     println!("{:?}", test);
 }
 
