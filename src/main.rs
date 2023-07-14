@@ -4,10 +4,8 @@ use std::fs::File;
 use std::io::prelude::*;
 
 fn main(){
-    let mut file: File = File::open("src/files/test.txt").expect("Could not find file");
-    let mut text: String = String::new();
-
-    file.read_to_string(&mut text).expect("Could not read file");
+    let s: String = String::from("src/files/test.txt");
+    let test: CountData = CountData::new(&s);
 }
 
 
