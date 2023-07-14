@@ -1,5 +1,7 @@
 mod text_logic {
     use std::{fs::File, io::Read};
+    pub const WHITE_SPACES: [u8; 3] = [b' ', b'\n', b'\t'];
+    pub const PUNCTUATION: [u8; 3] = [b'.', b'!', b'?'];
 
     pub enum ExtractError {
         MissingFile,
@@ -31,6 +33,7 @@ pub struct CountData {
 }
 
 impl CountData {
+    
     pub fn new(file_name: &String) -> CountData {
         CountData{
             text: match text_logic::extract_text(&file_name) {
@@ -48,11 +51,13 @@ impl CountData {
        let text_bytes: &[u8] = self.text.as_bytes();
 
        for &byte in text_bytes {
-           match byte {
-               b' ' | b'\n' => self.word_count += 1,
-               b'.' => self.sentence_count += 1,
-               _ => self.char_count += 1,
-            };
+           if text_logic::WHITE_SPACES.contains(&byte) {
+               self.word_count += 1;
+           }else if text_logic::PUNCTUATION.contains(&byte) {
+               self.sentence_count += 1;
+           }else{
+               self.char_count += 1;
+           } 
         }
 
        self
