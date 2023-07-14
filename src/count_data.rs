@@ -5,6 +5,7 @@ enum ExtractError {
     EmptyFile,
 }
 
+#[derive(Debug)]
 pub struct CountData {
     pub text: String,
     char_count: u64,
@@ -46,7 +47,7 @@ impl CountData {
     }
 
     pub fn set_word_count(&mut self, word_count: u64) -> (){
-        self.char_count = word_count;
+        self.word_count = word_count;
     }
 
     pub fn set_sentence_count(&mut self, sentence_count: u64) -> (){
