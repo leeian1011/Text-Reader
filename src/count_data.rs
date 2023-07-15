@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 mod text_logic {
     use std::{fs::File, io::Read};
     pub const WHITE_SPACES: [u8; 3] = [b' ', b'\n', b'\t'];
@@ -48,33 +46,33 @@ impl CountData {
             sentence_count: 0,
         }
     }
-    
-    pub fn count(mut self) -> CountData{
-       let text_bytes: &[u8] = self.text.as_bytes();
 
-       for &byte in text_bytes {
-           if text_logic::WHITE_SPACES.contains(&byte) {
-               self.word_count += 1;
-           }else if text_logic::PUNCTUATION.contains(&byte) {
-               self.sentence_count += 1;
-           }else if !text_logic::NON_CHARACTERS.contains(&byte) {  //contemplating whether to use//!text::logic... or  //else if continue;
-               self.char_count += 1;
-           } 
+    pub fn count(mut self) -> CountData{
+        let text_bytes: &[u8] = self.text.as_bytes();
+
+        for &byte in text_bytes {
+            if text_logic::WHITE_SPACES.contains(&byte) {
+                self.word_count += 1;
+            }else if text_logic::PUNCTUATION.contains(&byte) {
+                self.sentence_count += 1;
+            }else if !text_logic::NON_CHARACTERS.contains(&byte) {  //contemplating whether to use//!text::logic... or  //else if continue;
+                self.char_count += 1;
+            } 
         }
 
-       self
+        self
     }
 
     pub fn level(&self) -> f32 {
         //This uses the Coleman-Liau Index Formula
         let letter_per_word: f32 = (self.char_count as f32)/(self.word_count as f32);
         let sentence_per_word: f32 = (self.sentence_count as f32)/(self.word_count as f32);        
-        
+
         let average_letters = letter_per_word * 100.0;
         let average_words = sentence_per_word * 100.0;
         0.0588 * average_letters - 0.296 * average_words - 15.8
     }
-    
+
     pub fn find_in_text(&self, pattern: &str) -> bool {
         let pattern_bytes: &[u8] = pattern.as_bytes();
         let text_bytes: &[u8] = self.text.as_bytes();
@@ -101,10 +99,37 @@ impl CountData {
 
             word_bytes.push(byte.clone());
         }
-        
+
         false
     }
+
+    pub fn times_in_text(&self, pattern: &str) -> usize {
+        let pattern_bytes: &[u8] = pattern.as_bytes();
+        let text_bytes: &[u8] = self.text.as_bytes();
+        let mut match_vector: Vec<u8> = Vec::new();
+        let mut count: usize = 0;
+        
+        for &byte in text_bytes {
+            if byte == b' ' {
+                if pattern.len() != match_vector.len() {
+                    match_vector.clear();
+                    continue;
+                }
+                for i in 0..pattern.len() {
+                    if pattern_bytes[i] != match_vector[i] {
+                        break;
+                    }
+                    if i == pattern.len() - 1 {
+                        count += 1;
+                    }
+                }
+                match_vector.clear();
+                continue;
+            }
+
+            match_vector.push(byte.clone());
+        }
+        count
+    }
+
 }
-
-
-

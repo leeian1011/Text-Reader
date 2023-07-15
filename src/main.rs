@@ -11,8 +11,8 @@ fn main(){
     
     let test: CountData = CountData::new(&argv[1]).count();
     let check: bool = test.find_in_text("LONGEST");
-
-    println!("{}", check);
+    let times: usize = test.times_in_text("this");
+    println!("{}", times);
     
 }
 
