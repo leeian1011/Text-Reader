@@ -90,7 +90,6 @@ impl CountData {
                         word_bytes.clear();
                         break;
                     }
-                    println!("{}", word_bytes[i] as char);
                     if i == pattern.len() - 1 {
                         return true
                     }

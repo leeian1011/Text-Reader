@@ -32,6 +32,9 @@ This programme will only work with .txt files and *ASCII* only text. I understan
 I would like to experiment with having all the expected read bytes be one byte big. Although, I think I could just use a `for x: char in
 string' for loop to ease the issue, I'll try working with bytes first! (It's easier to match with byte literals)
 
+Building this taught me simple usage of the `Result<T, E>` enum, a bit more about `Vec` and also just very slightly on how ownership and borrowing
+works. Command-line arguments and also match control flow statement. All in all a pretty rounded basic project!
+
 ### Extras 
 *I am horrible with creating digital mind map that captures my idea and concepts so here's one I've drawn out. I plan to learn how to use
 software that allows me to create mind maps to better explain my concepts and ideas!*
