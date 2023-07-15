@@ -1,0 +1,1 @@
+this this this this this is sample text that should return 5 when times_in is called.
